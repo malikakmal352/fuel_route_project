@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 
 from route_planner.services import RouteService
-from route_planner.api.serializers import RouteRequestSerializer
+from route_planner.api.serializers import RouteRequestSerializer, RouteResponseSerializer
 
 
 @extend_schema(tags=['Fuel Route APIs'])
