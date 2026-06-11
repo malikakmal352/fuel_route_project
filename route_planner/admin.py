@@ -16,6 +16,8 @@ class TruckStopAdmin(ImportExportModelAdmin):
         'state',
         'rack_id',
         'retail_price',
+        'latitude',
+        'longitude',
         'created',
         'modified'
     ]
@@ -35,6 +37,9 @@ class TruckStopAdmin(ImportExportModelAdmin):
     ]
 
     ordering = ['truckstop_name']
+    
+    # Exclude auto-generated timestamp fields from form
+    readonly_fields = ['created', 'modified']
 
     fieldsets = (
         ('Basic Information', {
@@ -43,6 +48,12 @@ class TruckStopAdmin(ImportExportModelAdmin):
                 'address',
                 'city',
                 'state'
+            )
+        }),
+        ('Location Data', {
+            'fields': (
+                'latitude',
+                'longitude'
             )
         }),
         ('Fuel Data', {
@@ -55,10 +66,10 @@ class TruckStopAdmin(ImportExportModelAdmin):
             'fields': (
                 'created',
                 'modified'
-            )
+            ),
+            'classes': ('collapse',)
         }),
     )
 
     def has_delete_permission(self, request, obj=None):
-        # Optional: prevent deletion like your BillingSettings pattern
-        return True  # change to False if you want protection
+        return True

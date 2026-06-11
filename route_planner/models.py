@@ -2,7 +2,6 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
 
-
 class TruckStop(TimeStampedModel):
     truckstop_name = models.CharField(
         max_length=255,
@@ -39,6 +38,20 @@ class TruckStop(TimeStampedModel):
         verbose_name="Retail Price",
         help_text="Current retail fuel price"
     )
+    
+    latitude = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="Latitude",
+        help_text="Latitude coordinate of the truck stop"
+    )
+    
+    longitude = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="Longitude",
+        help_text="Longitude coordinate of the truck stop"
+    )
 
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -66,3 +79,8 @@ class TruckStop(TimeStampedModel):
 
     def __str__(self):
         return f"{self.truckstop_name} - {self.city}, {self.state}"
+    
+    @property
+    def full_address(self):
+        """Returns the full formatted address"""
+        return f"{self.address}, {self.city}, {self.state}"
